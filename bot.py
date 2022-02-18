@@ -1,0 +1,31 @@
+import nextcord
+from nextcord.ext import commands
+import os
+from botprivate import botprivate
+
+intents = nextcord.Intents.all()
+intents.members = True
+
+client = commands.Bot(command_prefix = "c!", intents = intents)
+
+toke = botprivate.TokenClass()
+
+@client.command()
+async def loadcog(ctx, cog):
+    client.load_extension(f"cogs.{cog}")
+
+@client.command()
+async def unloadcog(ctx, cog):
+    client.unload_extension(f"cogs.{cog}")
+
+@client.event()
+async def on_ready():
+    for filename in os.listdir("./cogs"):
+        if filename.endswith(".py"):
+            client.load_extension(f"cogs.{filename[:-3]}")
+
+
+
+
+#Run the f'n thing!
+bot.run(toke.getToken())
