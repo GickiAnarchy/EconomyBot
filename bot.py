@@ -2,7 +2,7 @@ import nextcord
 from nextcord.ext import commands
 import os
 from private import botprivate
-from data.sqlite3connection import *
+
 
 intents = nextcord.Intents.all()
 intents.members = True
