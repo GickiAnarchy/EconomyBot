@@ -2,6 +2,7 @@ import nextcord
 from nextcord.ext import commands
 import os
 from private import botprivate
+from data import bankfunctions
 
 
 intents = nextcord.Intents.all()
