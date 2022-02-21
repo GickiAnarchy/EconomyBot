@@ -32,9 +32,10 @@ class BankCommands(commands.Cog):
 
     @commands.command(aliases=["with"])
     @commands.guild_only()
-    async def withdraw(ctx, *, amount=None):
+    async def withdraw(self, ctx, *, amount=None):
         user = ctx.author
-        await bankfunctions.open_account(user)
+        amount = int(amount)
+        await bankfunctions.open_bank(user)
         users = await bankfunctions.get_bank_data(user)
         bank_amt = users[2]
         if amount.lower() == "all" or amount.lower() == "max":
@@ -42,7 +43,6 @@ class BankCommands(commands.Cog):
             await bankfunctions.update_bank(user, -1 * bank_amt, "bank")
             await ctx.send(f"{user.mention} you withdrew {bank_amt} in your wallet")
         bank = users[1]
-        amount = int(amount)
         if amount > bank:
             await ctx.send(f"{user.mention} You don't have that enough money!")
             return
@@ -77,16 +77,33 @@ class BankCommands(commands.Cog):
         await bankfunctions.update_bank(self.user, +1 * self.amount, "bank")
         await ctx.send(f"{self.user.mention} you withdrew **{self.amount}** from your **Bank!**")
 
-    @commands.command(aliases = ["fm", "gimme"])
+    @commands.command(aliases=["fm", "gimme"])
     @commands.has_role("Cool Kid")
-    async def freemoney(self, ctx, free = 100):
+    async def freemoney(self, ctx, free=100):
         self.free = int(free)
         self.user = ctx.author
         resp = await economyview.ask(ctx)
         if resp == True:
             await bankfunctions.update_bank(self.user, self.free)
             await ctx.send(f"{self.user.mention} just found ${self.free}")
-        
+
+    @commands.command()
+    @commands.has_role("Cool Kid")
+    async def freemoney(self, ctx, amount=100):
+        self.user = ctx.author
+        self.amount = int(amount)
+        self.resp = economyview.ask(ctx)
+        if self.resp == True:
+            await bankfunctions.update_bank(self.user, self.amount)
+            await ctx.send(f"{self.user.mention} just found ${self.amount}")
+
+
+def setup(client):
+    client.add_cog(BankCommands(client))
+
+
+
+
 
 """
 	@commands.command()
@@ -134,20 +151,3 @@ class BankCommands(commands.Cog):
     	em.set_footer(text=f"GLOBAL - {ctx.guild.name}")
         await ctx.send(embed=em)
 """
-
-
-
-
-	@commands.command()
-    @commands.has_role("Cool Kid")
-    async def freemoney(self, ctx, amount=100):
-		self.user = ctx.author
-        self.amount = int(amount)
-        self.resp = await economyview.ask(ctx)
-        if self.resp == True:
-			await bankfunctions.update_bank(self.user, self.amount)
-	    	await ctx.send(f"{self.user.mention} just found ${self.amount}")
-
-
-def setup(client):
-    client.add_cog(BankCommands(client))
