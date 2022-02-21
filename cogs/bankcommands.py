@@ -138,5 +138,16 @@ class BankCommands(commands.Cog):
 
 
 
+	@commands.command()
+    @commands.has_role("Cool Kid")
+    async def freemoney(self, ctx, amount=100):
+		self.user = ctx.author
+        self.amount = int(amount)
+        self.resp = await economyview.ask(ctx)
+        if self.resp == True:
+			await bankfunctions.update_bank(self.user, self.amount)
+	    	await ctx.send(f"{self.user.mention} just found ${self.amount}")
+
+
 def setup(client):
     client.add_cog(BankCommands(client))
