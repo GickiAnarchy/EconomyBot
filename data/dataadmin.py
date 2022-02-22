@@ -30,6 +30,26 @@ class DB_Create(commands.Cog):
 
         await ctx.send("Table created successfully !")
     # Remove the above code after creating the table !
+    
+    @commands.command()
+    async def drop_bank(self, ctx):
+        self.db = sqlite3.connect(file_name)
+        self.cursor = self.db.cursor()
+        
+        self.cursor.execute("""DELETE FROM economy""")
+        self.db.commit()
+        self.db.close()
+        
+        await ctx.send("Economy Data has been deleted!!")
+        
+        unloadcog(self.client, "data.dataadmin")
+
+    
+    
+def unloadcog(client, cog):
+    client.unload_extension(f"{cog}")
+
+
 
 def setup(client):
     client.add_cog(DB_Create(client))

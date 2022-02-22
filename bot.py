@@ -8,26 +8,30 @@ from data import bankfunctions, economyview
 intents = nextcord.Intents.all()
 intents.members = True
 
-client = commands.Bot(command_prefix = ".!", intents = intents)
+client = commands.Bot(command_prefix = "..", intents = intents)
 
 toke = botprivate.TokenClass()
 
 @client.command()
-async def loadcog(ctx, cog):
-    
+@commands.has_role("Cool Kid")
+async def loadcog(ctx, cog):    
     client.load_extension(f"{cog}")
     await ctx.send(f"{cog} has been loaded!")
-
-@client.command()
-async def unloadcog(ctx, cog):
-    client.unload_extension(f"cogs.{cog}")
+    
+@loadcog.error
+async def loadcog_error(ctx, error):
+    if isinstance(error, commands.CheckFailure):
+        await ctx.send("`You dont have permissions to run this command.`")
 
 @client.event
 async def on_ready():
+    c = 1
     for filename in os.listdir("./cogs"):
         if filename.endswith(".py"):
+            print(f"{c} - {filename}")
             client.load_extension(f"cogs.{filename[:-3]}")
-    await client.change_presence(status=nextcord.Status.online, activity=nextcord.Game("*WIP* Economy Bot -  '.!'"))
+            c += 1
+    await client.change_presence(status=nextcord.Status.online, activity=nextcord.Game("*WIP* Economy Bot -  '..'"))
     
 @client.command()
 @commands.has_role("Cool Kid")

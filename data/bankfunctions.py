@@ -59,4 +59,3 @@ async def get_lb():
     cursor.close()
     db.close()
     return users
-
