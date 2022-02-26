@@ -59,3 +59,46 @@ async def get_lb():
     cursor.close()
     db.close()
     return users
+
+
+
+"""
+async def get_roulette_history(user):
+    db = sqlite3.connect(file_name)
+    cursor = db.cursor()
+    cursor.execute(f"SELECT * FROM roulette WHERE userID = {user.id}")
+    users = cursor.fetchone()
+    cursor.close()
+    db.close()
+    return users
+    
+async def open _ roulette_history(user):
+    columns = ["RollHistory"] # You can add more Columns in it !
+    db = sqlite3.connect(file_name)
+    cursor = db.cursor()
+    cursor.execute(f"SELECT * FROM roulette WHERE userID = {user.id}")
+    data = cursor.fetchone()
+    if data is None:
+        cursor.execute(f"INSERT INTO roulette(userID) VALUES({user.id})")
+        db.commit()
+        for name in columns:
+            cursor.execute(f"UPDATE roulette SET {name} = 0 WHERE userID = {user.id}")
+        db.commit()
+    cursor.close()
+    db.close()
+
+
+async def update_roulette_history(user: nextcord.User, theRoll):
+    db = sqlite3.connect(file_name)
+    cursor = db.cursor()
+    cursor.execute(f"SELECT * FROM roulette WHERE userID = {user.id}")
+    data = cursor.fetchone()
+    if data is not None:
+        cursor.execute(f"UPDATE roulette SET RollHistory ={theRoll} WHERE userID = {user.id}")
+        db.commit()
+    cursor.execute(f"SELECT RollHistory FROM roulette WHERE userID = {user.id}")
+    users = cursor.fetchone()
+    cursor.close()
+    db.close()
+    return users
+"""
