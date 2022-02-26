@@ -7,7 +7,7 @@ Features:
     <deposit amount>
     <withdraw amount>
   -Users can attempt to steal from another users WALLET
-    <steal @memtioneduser>
+    <steal @mentionedUser>
   -Users can bet on a coin flip.
     <flip (Heads or Tails) amount>
 
