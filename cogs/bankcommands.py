@@ -92,7 +92,7 @@ class BankCommands(commands.Cog):
     async def freemoney(self, ctx, amount=100):
         self.user = ctx.author
         self.amount = int(amount)
-        self.resp = economyview.ask(ctx)
+        self.resp = await economyview.ask(ctx)
         if self.resp == True:
             await bankfunctions.update_bank(self.user, self.amount)
             await ctx.send(f"{self.user.mention} just found ${self.amount}")

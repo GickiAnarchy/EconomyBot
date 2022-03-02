@@ -79,3 +79,5 @@ async def colour(ctx):
 
     # Sending a message containing our view
     await ctx.send('Pick your favourite colour:', view=view)
+
+####################################################

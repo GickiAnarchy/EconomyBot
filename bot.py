@@ -12,16 +12,21 @@ client = commands.Bot(command_prefix = "..", intents = intents)
 
 toke = botprivate.TokenClass()
 
-@client.command()
+@client.command(aliases = ["loadadmin", "la"])
 @commands.has_role("Cool Kid")
-async def loadcog(ctx, cog):    
-    client.load_extension(f"{cog}")
-    await ctx.send(f"{cog} has been loaded!")
-    
-@loadcog.error
-async def loadcog_error(ctx, error):
+async def loaddataadmin(ctx):
+  client.load_extension("data.dataadmin")
+  await ctx.send("dataadmin has been loaded!")
+        
+
+@loaddataadmin.error
+async def loaddataadmin_error(ctx, error):
     if isinstance(error, commands.CheckFailure):
         await ctx.send("`You dont have permissions to run this command.`")
+    else:
+      await ctx.send(f"There has been an error loading dataadmin")
+      print(str(error))
+
 
 @client.event
 async def on_ready():
@@ -31,6 +36,7 @@ async def on_ready():
             print(f"{c} - {filename}")
             client.load_extension(f"cogs.{filename[:-3]}")
             c += 1
+    print("Bot is ready")
     await client.change_presence(status=nextcord.Status.online, activity=nextcord.Game("*WIP* Economy Bot -  '..'"))
     
 @client.command()
