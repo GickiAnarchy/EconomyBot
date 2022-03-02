@@ -96,12 +96,19 @@ class BankCommands(commands.Cog):
         if self.resp == True:
             await bankfunctions.update_bank(self.user, self.amount)
             await ctx.send(f"{self.user.mention} just found ${self.amount}")
-
-
+    
+    
 def setup(client):
     client.add_cog(BankCommands(client))
 
 
+async def canAfford(user: nextcord.User, amount):
+    users = await bankfunctions.get_bank_data(user)
+    user_wallet = user[1]
+    if user_wallet > amount:
+        return True
+    else:
+        return False
 
 
 
