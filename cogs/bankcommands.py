@@ -102,16 +102,6 @@ def setup(client):
     client.add_cog(BankCommands(client))
 
 
-async def canAfford(user: nextcord.User, amount):
-    users = await bankfunctions.get_bank_data(user)
-    user_wallet = user[1]
-    if user_wallet > amount:
-        return True
-    else:
-        return False
-
-
-
 """
 	@commands.command()
     @commands.has_role("Cool Kid")
