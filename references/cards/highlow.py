@@ -42,6 +42,9 @@ while len(hl.deck.cards) >= 2:
 
 if hl.getScore() > 0:
     print("\nPLAYER WINS!!!")
-else:
+elif hl.getScore() < 0:
     print("\nCOMPUTER WINS!!!")
+elif hl.getScore() == 0:
+    print("DRAW: TIED GAME")
+    
 print(f"{str(hl.getScore())}")
