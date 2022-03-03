@@ -2,6 +2,9 @@ from random import shuffle
 
 
 class Card:
+    """ Class for a single basic playing card
+
+    """
     suits = ["spades",
              "hearts",
              "diamonds",
@@ -19,6 +22,7 @@ class Card:
         self.suit = s
 
     def __lt__(self, c2):
+        """Handles the 'less than' operator (<)"""
         if self.value < c2.value:
             return True
         if self.value == c2.value:
@@ -29,6 +33,7 @@ class Card:
         return False
 
     def __gt__(self, c2):
+        """Handles the 'greater than' operator (>)"""
         if self.value > c2.value:
             return True
         if self.value == c2.value:
@@ -39,6 +44,7 @@ class Card:
         return False
 
     def __repr__(self):
+        """Returns a string format of the object"""
         v = self.values[self.value] +\
             " of " + \
             self.suits[self.suit]
@@ -48,6 +54,9 @@ class Card:
 
 
 class Deck:
+    """ Class of 52 Card() to create a full deck.
+
+    """
     def __init__(self):
         self.cards = []
         for i in range(2, 15):
