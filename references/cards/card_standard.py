@@ -1,4 +1,5 @@
 from random import shuffle
+import os
 
 
 class Card:
@@ -15,11 +16,14 @@ class Card:
               "8", "9", "10",
               "Jack", "Queen",
               "King", "Ace"]
+    
+    file_path = "references/cards/cardsPNG/"
 
     def __init__(self, v, s):
         """suit + value are ints"""
         self.value = v
         self.suit = s
+        self.imagepath = f"{self.file_path}{self.suits[self.suit]}_{self.values[self.value].lower()}.png"
         
 
     def __lt__(self, c2):
@@ -50,6 +54,11 @@ class Card:
             " of " + \
             self.suits[self.suit]
         return v
+    
+    def getImage(self):
+        """Returns the PNG file image of the card"""
+        print(f"Getting {self.imagepath}....")
+        return self.imagepath
 
 
 
@@ -71,3 +80,11 @@ class Deck:
         if len(self.cards) == 0:
             return
         return self.cards.pop()
+
+
+
+
+####################################################
+####################################################
+####################################################
+
