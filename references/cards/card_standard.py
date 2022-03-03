@@ -20,6 +20,7 @@ class Card:
         """suit + value are ints"""
         self.value = v
         self.suit = s
+        
 
     def __lt__(self, c2):
         """Handles the 'less than' operator (<)"""
