@@ -1,5 +1,8 @@
-from card_standard import *
+from cards.card_standard import *
 import time
+from PIL import Image, ImageTk
+import tkinter as tk
+
 
 class HighLow:
     """
@@ -11,40 +14,21 @@ class HighLow:
         self.opp = "AI"
         self.score = 0
     
-    def drawCard(self):
-        self.pcard = self.deck.rm_card()
-        self.ccard = self.deck.rm_card()
+    
+    def pullCard(self):
+        self.pcard = self.deck.drawCard()
+        self.ccard = self.deck.drawCard()
         
         print(f"{repr(self.pcard)} VS {repr(self.ccard)}")
 
         if self.pcard > self.ccard:
             print("Player wins")
-            self.score += 1
+            self.score += 1          
         else:
             print("Computer wins")
             self.score -= 1
         
         print(f"{str(self.deck.cards.__len__())} cards left\n\n")
-        
+
     def getScore(self):
         return self.score
-            
-        
-        
-        
-        
-hl = HighLow()
-
-
-while len(hl.deck.cards) >= 2:
-    hl.drawCard()
-    time.sleep(2)
-
-if hl.getScore() > 0:
-    print("\nPLAYER WINS!!!")
-elif hl.getScore() < 0:
-    print("\nCOMPUTER WINS!!!")
-elif hl.getScore() == 0:
-    print("DRAW: TIED GAME")
-    
-print(f"{str(hl.getScore())}")
