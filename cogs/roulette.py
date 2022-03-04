@@ -4,7 +4,6 @@ from nextcord.ext import commands
 import os
 import pickle
 import random
-import numpy as np
 from data import bankfunctions
 
 

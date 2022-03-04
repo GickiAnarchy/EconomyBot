@@ -61,6 +61,13 @@ async def get_lb():
     return users
 
 
+async def canAfford(user: nextcord.User, amount):
+    users = await get_bank_data(user)
+    user_wallet = users[1]
+    if user_wallet > amount:
+        return True
+    else:
+        return False
 
 """
 async def get_roulette_history(user):

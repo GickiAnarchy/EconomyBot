@@ -9,7 +9,7 @@ class BasicInteraction(commands.Cog):
     def __init__(self, client):
         self.client = client
     
-    @commands.command(aliases=["rob"])
+    @commands.command(aliases=["rob", "lick"])
     @commands.guild_only()
     async def steal(self, ctx, victim: nextcord.User):
         self.user = ctx.author

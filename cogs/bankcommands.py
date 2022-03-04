@@ -96,13 +96,10 @@ class BankCommands(commands.Cog):
         if self.resp == True:
             await bankfunctions.update_bank(self.user, self.amount)
             await ctx.send(f"{self.user.mention} just found ${self.amount}")
-
-
+    
+    
 def setup(client):
     client.add_cog(BankCommands(client))
-
-
-
 
 
 """
