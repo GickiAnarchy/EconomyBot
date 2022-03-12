@@ -17,7 +17,6 @@ toke = botprivate.TokenClass()
 async def loaddataadmin(ctx):
   client.load_extension("data.dataadmin")
   await ctx.send("dataadmin has been loaded!")
-        
 
 @loaddataadmin.error
 async def loaddataadmin_error(ctx, error):
@@ -26,7 +25,6 @@ async def loaddataadmin_error(ctx, error):
     else:
       await ctx.send(f"There has been an error loading dataadmin")
       print(str(error))
-
 
 @client.event
 async def on_ready():
@@ -38,7 +36,7 @@ async def on_ready():
             c += 1
     print("Bot is ready")
     await client.change_presence(status=nextcord.Status.online, activity=nextcord.Game("*WIP* Economy Bot -  '..'"))
-    
+
 @client.command()
 @commands.has_role("Cool Kid")
 async def clr(ctx, amount = 0):
