@@ -58,14 +58,18 @@ class matchImages():
         if len(self.urls) <= 0:
             names = list(self.img_dictionary.keys())
             sites = list(self.img_dictionary.values())
+            leng = len(self.img_dictionary)
             
             with open("imgdict.txt", "w") as ww:
-                for x in len(self.img_dictionary):
+                while True:
                     print(str(x))
                     n = names.pop()
                     s = sites.pop()
                     fstr = f"{n}  __  {s}/n"
                     ww.write(fstr)
+                    
+                    if len(names) and len(sites) <= 0:
+                        return
                     
     
     def errorBox(self):
