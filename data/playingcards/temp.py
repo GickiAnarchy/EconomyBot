@@ -34,7 +34,7 @@ class matchImages():
         self.imgname.pack()
                 
         self.next_button = tk.Button(self.window, text ="Next", command=self.next)
-        self.next_button.pack(side=tk.BOTTOM, padx=(0, 20), pady=(0, 20))
+        self.next_button.pack(side = tk.BOTTOM, padx=(0, 20), pady=(0, 20))
 
     
     
@@ -42,12 +42,10 @@ class matchImages():
         self.tUrl = self.urls.pop()
         response = requests.get(self.tUrl)
         self.img = PIL.Image.open(BytesIO(response.content))
-        self.cimg = ImageTk.PhotoImage(self.img)
+        resizedImg = self.img.resize((250,363), Image.ANTIALIAS)
+        self.cimg = ImageTk.PhotoImage(resizedImg)
         self.cardLabel.config(image = self.cimg)
         self.cardLabel.image = self.cimg
-        
-        #resize_image = c1img.resize((200, 340) , Image.ANTIALIAS)
-        #img = ImageTk.PhotoImage(climg)
 
         
     def next(self):
@@ -72,7 +70,8 @@ class matchImages():
     
     def errorBox(self):
         msgbox.showinfo("Blank Name", "Must enter a name in the field.")
-        
+
+
     def run(self):
         self.window.mainloop()
 
