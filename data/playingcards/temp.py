@@ -62,7 +62,6 @@ class matchImages():
             
             with open("imgdict.txt", "w") as ww:
                 while True:
-                    print(str(x))
                     n = names.pop()
                     s = sites.pop()
                     fstr = f"{n}  __  {s}/n"
@@ -73,6 +72,7 @@ class matchImages():
                     
     
     def errorBox(self):
+        msgbox = tk.messagebox()
         msgbox.showinfo("Blank Name", "Must enter a name in the field.")
 
 
