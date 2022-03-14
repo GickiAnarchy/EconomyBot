@@ -1,0 +1,26 @@
+[33mcommit e1f1a481ccbcd476906c6d67ac82b4be4635e761[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: GickiAnarchy <mindofmagick85@gmail.com>
+Date:   Sun Mar 13 04:27:20 2022 -0500
+
+    6
+
+[1mdiff --git a/data/playingcards/temp.py b/data/playingcards/temp.py[m
+[1mindex 1e79b25..8ec975b 100755[m
+[1m--- a/data/playingcards/temp.py[m
+[1m+++ b/data/playingcards/temp.py[m
+[36m@@ -62,7 +62,6 @@[m [mclass matchImages():[m
+             [m
+             with open("imgdict.txt", "w") as ww:[m
+                 while True:[m
+[31m-                    print(str(x))[m
+                     n = names.pop()[m
+                     s = sites.pop()[m
+                     fstr = f"{n}  __  {s}/n"[m
+[36m@@ -73,6 +72,7 @@[m [mclass matchImages():[m
+                     [m
+     [m
+     def errorBox(self):[m
+[32m+[m[32m        msgbox = tk.messagebox()[m
+         msgbox.showinfo("Blank Name", "Must enter a name in the field.")[m
+ [m
+ [m

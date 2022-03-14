@@ -72,9 +72,7 @@ class matchImages():
                     
     
     def errorBox(self):
-        msgbox = tk.messagebox()
-        msgbox.showinfo("Blank Name", "Must enter a name in the field.")
-
+        pass
 
     def run(self):
         self.window.mainloop()
