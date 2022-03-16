@@ -52,4 +52,4 @@
 "https://imgbox.com/fL5pQatO" title="spades_ace.png" 
 "https://imgbox.com/gWiA5gPd" title="spades_jack.png" 
 "https://imgbox.com/QFNTlGhg" title="spades_king.png" 
-"https://imgbox.com/pbSPgvUT" title="spades_queen.png" 
+"https://imgbox.com/pbSPgvUT" title="spades_queen.png"
