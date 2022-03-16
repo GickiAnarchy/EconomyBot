@@ -25,19 +25,19 @@ class CardGames(commands.Cog):
             return m.author == ctx.author and m.content.isdigit()
 
         try:
-            self.wager = await self.client.wait_for('message', check=is_correct, timeout=10.0)
+            msg = await self.client.wait_for('message', check=is_correct, timeout=10.0)
         except asyncio.TimeoutError:
             return await ctx.send("Sorry, I can't wait forever.")
             
         self.deck = Deck()
         self.deck.createDeck()
-            
+        self.wager = int(msg.content)    
         self.com = self.deck.drawCard()
         self.card = self.deck.drawCard()
         winningpot = self.wager * 1.5
         self.strresult = ""
 
-        if int(self.wager) > self.wallet_amt:
+        if self.wager > self.wallet_amt:
             await ctx.send(f"You can't afford ${str(self.wager)}")
             return
 
@@ -55,7 +55,7 @@ class CardGames(commands.Cog):
         em.add_field(name = "Your card", value = f"{repr(self.card)}", inline = True)
         em.set_footer(text = f"{self.strresult}")
         
-        ctx.send(embed = em)
+        await ctx.send(embed = em)
 
 
 
