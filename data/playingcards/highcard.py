@@ -1,6 +1,6 @@
-from cards import *
-from deck import *
-from player import Player
+from .cards import *
+from .deck import *
+from .player import Player
 
 import time
 

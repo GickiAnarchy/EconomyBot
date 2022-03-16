@@ -2,10 +2,12 @@ import nextcord
 import random
 from nextcord.ext import commands
 from data import bankfunctions
-from data.playingcards import * 
+from data.playingcards.cards import Card
+from data.playingcards.deck import Deck
+import asyncio
 
 
-class CardGames(command.Cog):
+class CardGames(commands.Cog):
     def __init__(self, client):
         self.client = client
 
@@ -23,19 +25,37 @@ class CardGames(command.Cog):
             return m.author == ctx.author and m.content.isdigit()
 
         try:
-            self.wager = await bot.wait_for('message', check=is_correct, timeout=10.0)
+            self.wager = await self.client.wait_for('message', check=is_correct, timeout=10.0)
         except asyncio.TimeoutError:
-            return await ctx.send(f'Sorry, I can't wait forever.')'
+            return await ctx.send("Sorry, I can't wait forever.")
             
-            if int(self.wager) > self.wallet_amt:
-                await ctx.send(f"You can't afford ${str(self.wager)}")
-                return
+        self.deck = Deck()
+        self.deck.createDeck()
             
-            self.deck = data.playingcards.Deck()
-            self.com = self.deck.drawCard()
-            self.card = self.deck.drawCard()
-            
-            
+        self.com = self.deck.drawCard()
+        self.card = self.deck.drawCard()
+        winningpot = self.wager * 1.5
+        self.strresult = ""
+
+        if int(self.wager) > self.wallet_amt:
+            await ctx.send(f"You can't afford ${str(self.wager)}")
+            return
+
+        if self.card > self.com:
+            print(f"{self.player} won")
+            await bankfunctions.update_bank(self.player, winningpot)
+            self.strresult =f"{self.player} won"
+        else:
+            print(f"{self.player} lost")
+            await bankfunctions.update_bank(self.player, -int(self.wager))
+            self.strresult =f"{self.player} lost"
+
+        em = nextcord.Embed(title = "High Card Results")
+        em.add_field(name = "Card to beat", value = f"{repr(self.com)}", inline = True)
+        em.add_field(name = "Your card", value = f"{repr(self.card)}", inline = True)
+        em.set_footer(text = f"{self.strresult}")
+        
+        ctx.send(embed = em)
 
 
 

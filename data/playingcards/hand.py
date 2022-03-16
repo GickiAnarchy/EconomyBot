@@ -1,6 +1,6 @@
 #hand.py
 import random
-from cards import Card
+from .cards import Card
 
 class Hand():
     """A players hand of playing cards"""
