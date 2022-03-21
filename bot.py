@@ -1,5 +1,6 @@
 import nextcord
 from nextcord.ext import commands
+from nextcord import Interaction, SlashOption
 import os
 from private import botprivate
 from data import bankfunctions, economyview

@@ -1,6 +1,6 @@
 #deck.py
-from cards import Card 
-from joker_card import Joker
+from .cards import Card
+from .joker_card import Joker
 from random import shuffle
 
 

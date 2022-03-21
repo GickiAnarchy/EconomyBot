@@ -1,5 +1,5 @@
 #joker_card.py
-from cards import *
+from .cards import *
 
 class Joker(Card):
     """The Joker card which can have many unique rules according to the game."""
