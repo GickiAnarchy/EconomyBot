@@ -3,13 +3,13 @@ import os
 import random
 
 
-image_folder = os.path.abspath(os.path.join(os.path.dirname(__file__),"..", "images"))
+#image_folder = os.path.abspath(os.path.join(os.path.dirname(__file__),"..", "images"))
 
 
 class Card():
     """Single playing card class"""
 
-    back = image_folder + "/back.png"
+    #back = image_folder + "/back.png"
 
     suits = ["spades", "hearts", "diamonds", "clubs"]
 
@@ -20,8 +20,8 @@ class Card():
         self.value = v
         self.suit = s
         self.name = f"{self.suits[self.suit]}_{self.values[self.value]}"
-        self.imagename = f"{self.name}.png"
-        self.image = image_folder + f"/{self.imagename}"
+        #self.imagename = f"{self.name}.png"
+        #self.image =
         self.hidden = hidden
 
 
