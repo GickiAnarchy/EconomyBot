@@ -2,8 +2,7 @@ import nextcord
 import random
 from nextcord.ext import commands
 from data import bankfunctions
-from data.playingcards.cards import Card
-from data.playingcards.deck import Deck
+from data.playingcards import Card,Deck
 import asyncio
 
 
@@ -51,6 +50,7 @@ class CardGames(commands.Cog):
             self.strresult =f"{self.player} lost"
 
         em = nextcord.Embed(title = "High Card Results")
+        #em.set_image(self.card.Image())
         em.add_field(name = "Card to beat", value = f"{repr(self.com)}", inline = True)
         em.add_field(name = "Your card", value = f"{repr(self.card)}", inline = True)
         em.set_footer(text = f"{self.strresult}")
