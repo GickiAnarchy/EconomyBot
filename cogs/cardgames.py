@@ -12,12 +12,19 @@ class CardGames(commands.Cog):
 
     @commands.command()
     @commands.guild_only()
+    async def backcard(self, ctx):
+        self.c = Card(2,5)
+        em = nextcord.Embed(title = "CARD BACK")
+        em.set_image(url= f"{self.c.back}")
+        await ctx.send(embed = em)
+
+    @commands.command()
+    @commands.guild_only()
     async def highcard(self, ctx):
         self.player = ctx.author
         await bankfunctions.open_bank(self.player)
         users = await bankfunctions.get_bank_data(self.player)
         self.wallet_amt = users[1]
-        
         await ctx.send(f"How much do you want to wager?  Max:${self.wallet_amt}")
 
         def is_correct(m):
@@ -50,12 +57,16 @@ class CardGames(commands.Cog):
             self.strresult =f"{self.player} lost"
 
         em = nextcord.Embed(title = "High Card Results")
-        #em.set_image(self.card.Image())
+        userImg = self.card.Image()
+        print(f"{userImg}")
+        em2 = nextcord.Embed(title = "Your Card")
+        em2.set_image(url = f"{userImg}")
         em.add_field(name = "Card to beat", value = f"{repr(self.com)}", inline = True)
         em.add_field(name = "Your card", value = f"{repr(self.card)}", inline = True)
         em.set_footer(text = f"{self.strresult}")
         
         await ctx.send(embed = em)
+        await ctx.send(embed = em2)
 
 
 
