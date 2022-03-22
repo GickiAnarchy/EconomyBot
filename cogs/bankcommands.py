@@ -32,18 +32,20 @@ class BankCommands(commands.Cog):
 
     @commands.command(aliases=["with"])
     @commands.guild_only()
-    async def withdraw(self, ctx, *, amount=None):
+    async def withdraw(self, ctx, amount=None):
         user = ctx.author
-        amount = int(amount)
         await bankfunctions.open_bank(user)
         users = await bankfunctions.get_bank_data(user)
         bank_amt = users[2]
-        if amount.lower() == "all" or amount.lower() == "max":
-            await bankfunctions.update_bank(user, +1 * bank_amt)
-            await bankfunctions.update_bank(user, -1 * bank_amt, "bank")
-            await ctx.send(f"{user.mention} you withdrew {bank_amt} in your wallet")
-        bank = users[1]
-        if amount > bank:
+        if amount.isdigit():
+            amount = int(amount)
+        else:
+            if amount.lower() == "all" or amount.lower() == "max":
+                await bankfunctions.update_bank(user, +1 * bank_amt)
+                await bankfunctions.update_bank(user, -1 * bank_amt, "bank")
+                await ctx.send(f"{user.mention} you withdrew {bank_amt} in your wallet")
+                return
+        if amount > bank_amt:
             await ctx.send(f"{user.mention} You don't have that enough money!")
             return
         if amount < 0:
@@ -60,13 +62,14 @@ class BankCommands(commands.Cog):
         await bankfunctions.open_bank(self.user)
         self.users = await bankfunctions.get_bank_data(self.user)
         self.wallet_amt = self.users[1]
-        if amount.lower() == "all" or amount.lower() == "max":
-            await bankfunctions.update_bank(self.user, -1 * self.wallet_amt)
-            await bankfunctions.update_bank(self.user, +1 * self.wallet_amt, "bank")
-            await ctx.send(
-                f"{self.user.mention} you withdrew {self.wallet_amt} in your wallet"
-            )
-        self.amount = int(amount)
+        if amount.isdigit():
+            self.amount = int(amount)
+        else:
+            if amount.lower() == "all" or amount.lower() == "max":
+                await bankfunctions.update_bank(self.user, -1 * self.wallet_amt)
+                await bankfunctions.update_bank(self.user, +1 * self.wallet_amt, "bank")
+                await ctx.send(f"{self.user.mention} deposits ${self.wallet_amt} in the bank")
+                return
         if self.amount > self.wallet_amt:
             await ctx.send(f"{self.user.mention} You don't have that enough money!")
             return
@@ -75,17 +78,7 @@ class BankCommands(commands.Cog):
             return
         await bankfunctions.update_bank(self.user, -1 * self.amount)
         await bankfunctions.update_bank(self.user, +1 * self.amount, "bank")
-        await ctx.send(f"{self.user.mention} you withdrew **{self.amount}** from your **Bank!**")
-
-    @commands.command(aliases=["fm", "gimme"])
-    @commands.has_role("Cool Kid")
-    async def freemoney(self, ctx, free=100):
-        self.free = int(free)
-        self.user = ctx.author
-        resp = await economyview.ask(ctx)
-        if resp == True:
-            await bankfunctions.update_bank(self.user, self.free)
-            await ctx.send(f"{self.user.mention} just found ${self.free}")
+        await ctx.send(f"{self.user.mention} deposited ${self.amount} to the bank.")
 
     @commands.command()
     @commands.has_role("Cool Kid")
